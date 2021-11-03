@@ -2,18 +2,22 @@ let canvas = document.querySelector("#myCanvas");
 let ctx = canvas.getContext("2d");
 canvas.style.border = "10px solid black";
 canvas.style.background = "grey"
-
+//Dom
+let startBtn = document.querySelector("#start")
+let restartBtn = document.querySelector("#restart")
+let menuBtn = document.querySelector("#menu")
 
 //variables
 let intervalId = 0
 let isGameOver = false
+let isVictory = false
 let score = 0
 let isRight = false
 let isLeft = false
 
 //char vars
-let charX = 100
-let charY = 100
+let charX = 300
+let charY = 300
 let charWidth = 50
 let charHeight = 50
 // char coordinates
@@ -24,7 +28,7 @@ let charBot = charY + charHeight
 
 //obstacle vars
 let obsGap = 600
-let obsSpeed = 3
+let obsSpeed = 1
 
 let obs1X = 0
 let obs1Length = 300
@@ -45,6 +49,10 @@ let obs4Length = 500
 let obs4Height = 60
 let obs4X = 65
 let obs4Y = obs1Y + 3 * obsGap
+
+//opacity var
+let opacity = 0.0
+
 
 let dog = new Image()
 dog.src = "./images/perro.png"
@@ -70,48 +78,48 @@ ctx.fillRect(x, y, length, height)
 ctx.closePath()
 
 ctx.beginPath()
-ctx.fillStyle = "black"
+ctx.fillStyle = "white"
 ctx.fillRect(x + length + obs1Gap, y, length, height)
 ctx.closePath()
 }
 
 function drawObstacle2(x,y,length,height){
 ctx.beginPath()
-ctx.fillStyle = "black"
+ctx.fillStyle = "white"
 ctx.fillRect(x , y, length, height)
 ctx.closePath()
 
 ctx.beginPath()
-ctx.fillStyle = "black"
+ctx.fillStyle = "white"
 ctx.fillRect(x + obs2Gap + length, y, length, height)
 ctx.closePath()
 }
 
 function drawObstacle3(x,y,length,height){
 ctx.beginPath()
-ctx.fillStyle = "black"
+ctx.fillStyle = "white"
 ctx.fillRect(x , y, length, height)
 ctx.closePath
 
 ctx.beginPath()
-ctx.fillStyle = "black"
+ctx.fillStyle = "white"
 ctx.fillRect(x + length + 100 , y, length, height)
 ctx.closePath
 
 ctx.beginPath()
-ctx.fillStyle = "black"
+ctx.fillStyle = "white"
 ctx.fillRect(x + (length + 100)*2 , y, length, height)
 ctx.closePath
 
 ctx.beginPath()
-ctx.fillStyle = "black"
+ctx.fillStyle = "white"
 ctx.fillRect(x + (length + 100)*3 , y, length, height)
 ctx.closePath
 }
 
 function drawObstacle4(x,y,length, height){
     ctx.beginPath()
-    ctx.fillStyle = "black"
+    ctx.fillStyle = "white"
     ctx.fillRect(x , y, length, height)
     ctx.closePath
 }
@@ -151,7 +159,8 @@ function moveObst(){
         obst2Arr.y = obst4Arr.y + obsGap
         obst2Arr.x = obst2Random[Math.floor(Math.random() * obst2Random.length)]
         score++
-        // obsSpeed = obsSpeed*1.1
+        obsSpeed = obsSpeed + 0.035
+        opacityIncrease()
     }
 
     drawObstacle3(obst3Arr.x, obst3Arr.y, obs3Length, 40)
@@ -160,7 +169,8 @@ function moveObst(){
         obst3Arr.y = obst2Arr.y + obsGap
         obst3Arr.x = obst3Random[Math.floor(Math.random() * obst3Random.length)]
         score++
-        // obsSpeed = obsSpeed*1.1
+        obsSpeed = obsSpeed + 0.035
+        opacityIncrease()
     }
 
     drawObstacle4(obst4Arr.x, obst4Arr.y, obs4Length, obs4Height)
@@ -169,7 +179,8 @@ function moveObst(){
         obst4Arr.y = obst3Arr.y + obsGap
         obst4Arr.x = obst4Random[Math.floor(Math.random() * obst4Random.length)]
         score++
-        // obsSpeed = obsSpeed*1.1
+        obsSpeed = obsSpeed + 0.035
+        opacityIncrease()
     }
     
 }   
@@ -202,35 +213,35 @@ function charDirection(){
 //collisions
 
 function checkCollision1(){
-    // if(charBot > obst1Arr.y && charBot < obst1Arr.y + 300 || charTopL > obst1Arr.y && charTopL < obst1Arr.y + 300){
-    //     if(charX < obst1Arr.x + obs1Length || charX + charWidth > obst1Arr.x + obs1Length + obs1Gap){
-    //         isGameOver = true
-    //     }
-    // }
+    if(charBot > obst1Arr.y && charBot < obst1Arr.y + 300 || charTopL > obst1Arr.y && charTopL < obst1Arr.y + 300){
+        if(charX < obst1Arr.x + obs1Length || charX + charWidth > obst1Arr.x + obs1Length + obs1Gap){
+            isGameOver = true
+        }
+    }
 }
 
 function checkCollision2(){
-    // if(charBot > obst2Arr.y && charBot < obst2Arr.y + 40 || charTopL > obst2Arr.y && charTopL < obst2Arr.y + 40){
-    //     if(charX < obst2Arr.x + obs2Length || charX + charWidth > obst2Arr.x + obs2Length + obs2Gap){
-    //         isGameOver = true
-    //     }
-    // }
+    if(charBot > obst2Arr.y && charBot < obst2Arr.y + 40 || charTopL > obst2Arr.y && charTopL < obst2Arr.y + 40){
+        if(charX < obst2Arr.x + obs2Length && charX + charWidth > obst2Arr.x || charX + charWidth > obst2Arr.x + obs2Length + obs2Gap && charX < obst2Arr.x + (obs2Length * 2) + obs2Gap){
+            isGameOver = true
+        }
+    }
 }
 
 function checkCollision3(){
-    // if(charBot > obst3Arr.y && charBot < obst3Arr.y + 40 || charTopL > obst3Arr.y && charTopL < obst3Arr.y + 40){
-    //     if(charX < obst3Arr.x + obs3Length || charX + charWidth > obst3Arr.x + obs3Length + obs3Gap && charX < obst3Arr.x + (obs3Length * 2) + obs3Gap || charX + charWidth > obst3Arr.x + (obs3Length * 2) + (obs3Gap * 2) && charX < obst3Arr.x + (obs3Length * 3) + (obs3Gap * 2) || charX + charWidth > obst3Arr.x + (obs3Length * 3) + (obs3Gap * 3)){
-    //         isGameOver = true
-    //     }
-    // }
+    if(charBot > obst3Arr.y && charBot < obst3Arr.y + 40 || charTopL > obst3Arr.y && charTopL < obst3Arr.y + 40){
+        if(charX < obst3Arr.x + obs3Length && charX + charWidth > obst3Arr.x || charX + charWidth > obst3Arr.x + obs3Length + obs3Gap && charX < obst3Arr.x + (obs3Length * 2) + obs3Gap || charX + charWidth > obst3Arr.x + (obs3Length * 2) + (obs3Gap * 2) && charX < obst3Arr.x + (obs3Length * 3) + (obs3Gap * 2) || charX + charWidth > obst3Arr.x + (obs3Length * 3) + (obs3Gap * 3)){
+            isGameOver = true
+        }
+    }
 }
 
 function checkCollision4(){
-    // if(charBot > obst4Arr.y && charBot < obst4Arr.y + obs4Height || charY > obst4Arr.y && charY < obst4Arr.y + obs4Height){
-    //     if(charX > obst4Arr.x && charX < obst4Arr.x + obs4Length || charX + charWidth > obst4Arr.x && charX + charWidth < obst4Arr.x + obs4Length){
-    //         isGameOver = true
-    //     }
-    // }
+    if(charBot > obst4Arr.y && charBot < obst4Arr.y + obs4Height || charY > obst4Arr.y && charY < obst4Arr.y + obs4Height){
+        if(charX > obst4Arr.x && charX < obst4Arr.x + obs4Length || charX + charWidth > obst4Arr.x && charX + charWidth < obst4Arr.x + obs4Length){
+            isGameOver = true
+        }
+    }
 }
 
 function checkCollisions(){
@@ -239,7 +250,18 @@ function checkCollisions(){
     checkCollision3()
     checkCollision4()
 }
+//==================================================================
+//filter
 
+function drawFilter(){
+    ctx.fillStyle = `rgba(0,0,0,${opacity})`
+    ctx.fillRect(0,0,canvas.width,canvas.height)
+}
+ function opacityIncrease(){
+    if(opacity < 0.7){
+        opacity += 0.01
+    }
+ }
 
 //===================================================================
 
@@ -250,14 +272,16 @@ function animation(){
     moveChar()
     moveObst()
     checkCollisions()
-    
+    drawFilter()
 
     ctx.font = "24px Verdana"
+    ctx.fillStyle = "red"
     ctx.fillText(`Score: ${score}`, 30, 70)
 
 
     if (isGameOver){
         cancelAnimationFrame(intervalId)
+        restart()
     }
     else {
         intervalId = requestAnimationFrame(animation)
@@ -266,8 +290,35 @@ function animation(){
 
 //==============================================================================
 
-window.addEventListener("load", () => {
+function start(){
+    startBtn.style.display = "none"
+    canvas.style.display = "block"
+    isGameOver = false
+    score = 0
+    charX = 300
+    charY = 300
+    obst1Arr.y = 900
+    obst2Arr.y = obst1Arr.y + obsGap
+    obst3Arr.y = obst2Arr.y + obsGap
+    obst4Arr.y = obst3Arr.y + obsGap
     animation()
+}
+
+function restart(){
+    restartBtn.style.display = "block"
+    menuBtn.style.display = "block"
+    canvas.style.display = "none"
+}
+
+//====================================================
+
+window.addEventListener("load", () => {
+    
+    canvas.style.display = "none"
+    restartBtn.style.display = "none"
+    menuBtn.style.display = "none"
+    
+    // start()
 
     document.addEventListener("keydown", (event) => {
         if(event.key === "ArrowLeft" || event.key === "a"){
@@ -283,5 +334,20 @@ window.addEventListener("load", () => {
     document.addEventListener("keyup", (event) => {
         isRight = false
         isLeft = false
+    })
+
+    startBtn.addEventListener("click", () => {
+        start()
+    })
+
+    restartBtn.addEventListener("click", () => {
+        start()
+        restartBtn.style.display = "none"
+    })
+
+    menuBtn.addEventListener("click", () => {
+        menuBtn.style.display = "none"
+        restartBtn.style.display = "none"
+        startBtn.style.display = "block"
     })
 })
