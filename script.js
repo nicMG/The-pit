@@ -2,10 +2,12 @@ let canvas = document.querySelector("#myCanvas");
 let ctx = canvas.getContext("2d");
 canvas.style.border = "10px solid black";
 canvas.style.background = "grey"
+
 //Dom
 let startBtn = document.querySelector("#start")
 let restartBtn = document.querySelector("#restart")
 let menuBtn = document.querySelector("#menu")
+let instructions = document.querySelector("#instructions")
 
 //variables
 let intervalId = 0
@@ -20,8 +22,8 @@ let charX = 300
 let charY = 300
 let charWidth = 50
 let charHeight = 50
-// char coordinates
 
+// char coordinates
 let charTopL = charX
 let charBotR = charY + charHeight + charWidth
 let charBot = charY + charHeight
@@ -65,8 +67,6 @@ dogR.src = "./images/perroR.png"
 
 
 //============== OBSTACLES ==================================================
-
-//hacer funciones especificas para cada tipo de obstaculo con parametros correspondientes a la creacion de cada rectangulo
 
 function drawObstacle1(x,y,length,height){
 ctx.beginPath()
@@ -293,11 +293,14 @@ function animation(){
 function start(){
     startBtn.style.display = "none"
     canvas.style.display = "block"
+    instructions.style.display = "none"
     isGameOver = false
     score = 0
     charX = 300
     charY = 300
     obst1Arr.y = 900
+    opacity = 0.0
+    obsSpeed = 3
     obst2Arr.y = obst1Arr.y + obsGap
     obst3Arr.y = obst2Arr.y + obsGap
     obst4Arr.y = obst3Arr.y + obsGap
@@ -342,10 +345,12 @@ window.addEventListener("load", () => {
 
     restartBtn.addEventListener("click", () => {
         start()
+        menuBtn.style.display = "none"
         restartBtn.style.display = "none"
     })
 
     menuBtn.addEventListener("click", () => {
+        instructions.style.display = "block"
         menuBtn.style.display = "none"
         restartBtn.style.display = "none"
         startBtn.style.display = "block"
