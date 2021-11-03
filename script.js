@@ -28,7 +28,7 @@ let charBot = charY + charHeight
 
 //obstacle vars
 let obsGap = 600
-let obsSpeed = 1
+let obsSpeed = 3
 
 let obs1X = 0
 let obs1Length = 300
