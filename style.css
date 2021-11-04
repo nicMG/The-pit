@@ -3,4 +3,77 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  height: 100vh;
+  padding: 0px;
+  margin: 0px;
+  font-family: "Press Start 2P", cursive;
+}
+
+#instructions {
+  height: 100%;
+  width: 100%;
+  background-image: url("./images/fondo-start.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#instructions h1 {
+  text-align: center;
+  font-size: 100px;
+  color: rgb(56, 52, 92);
+}
+
+#instructions h2 {
+  text-align: center;
+  color: rgb(24, 20, 36);
+  font-size: 25px;
+}
+
+#instructions p {
+  text-align: center;
+}
+
+#game {
+  background-image: url("./images/caveBackground.gif");
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+}
+
+#myCanvas {
+  margin: auto;
+  margin-top: 10px;
+}
+
+#start {
+  margin-top: 8%;
+}
+
+#game h1 {
+  text-align: center;
+  color: white;
+  font-size: 100px;
+}
+
+#game p {
+  text-align: center;
+  color: white;
+  font-size: 25px;
+}
+
+#restart {
+  margin-top: 10%;
+  margin-left: 40%;
+  margin-bottom: 10%;
+}
+
+#menu {
+  margin-top: 10%;
+  margin-left: 40%;
 }

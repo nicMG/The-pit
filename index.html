@@ -6,16 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Pit</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body class="body">
-    <div id="instructions">
-        <h1>Instructions</h1>
+    <section id="instructions">
+        <h1>THE PIT</h1>
+        <h2>Instructions</h2>
         <p>Move your character with the Right/Left arrows or with A/D</p>
-    </div>
-    <button id="start">Start Game</button>
-    <canvas id="myCanvas" width="650" height="900"></canvas>
-    <button id="restart">Restart Game</button>
-    <button id="menu">Main menu</button>
+        <p>Yep, thats it</p>
+        <button id="start">Start Game</button>
+    </section>
+    
+    <section id="game">
+        <canvas id="myCanvas" width="650" height="900"></canvas>
+        <h1 id="gameOver">GAME OVER</h1>
+        <p id="scoreTxt">Your score: </p>
+        <p id="insultTxt">Did you even try?</p>
+        <div class="buttons">
+            <button id="restart">Restart Game</button>
+            <button id="menu">Main menu</button>
+        </div>
+    </section>
     <script src="script.js"></script>
 </body>
 </html>

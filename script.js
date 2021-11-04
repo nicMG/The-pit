@@ -1,13 +1,18 @@
 let canvas = document.querySelector("#myCanvas");
 let ctx = canvas.getContext("2d");
 canvas.style.border = "10px solid black";
-canvas.style.background = "grey"
+canvas.style.background = "rgb(56,52,92)"
 
 //Dom
 let startBtn = document.querySelector("#start")
 let restartBtn = document.querySelector("#restart")
 let menuBtn = document.querySelector("#menu")
 let instructions = document.querySelector("#instructions")
+let gameScreen = document.querySelector("#game")
+let scoreTxt = document.querySelector("#scoreTxt")
+let insultTxt = document.querySelector("#insultTxt")
+
+
 
 //variables
 let intervalId = 0
@@ -55,6 +60,10 @@ let obs4Y = obs1Y + 3 * obsGap
 //opacity var
 let opacity = 0.0
 
+//bg vars
+let bgY = 0
+let bg1Speed = 1
+
 
 let dog = new Image()
 dog.src = "./images/perro.png"
@@ -62,69 +71,113 @@ dog.src = "./images/perro.png"
 let dogR = new Image()
 dogR.src = "./images/perroR.png"
 
-// let keke = new Image()
-// keke.src = "./images/KEKE_0.gif"
+let startBg = new Image()
+startBg.src = ".images/fondo-start.jpg"
 
+let gameBg = new Image()
+gameBg.src = "./images/caveBackground.gif"
+
+let bg1 = new Image()
+bg1.src = "./images/purple_L1.png"
+
+let bg2 = new Image()
+bg2.src = "./images/purple_L2.png"
+
+let bg3 = new Image()
+bg3.src = "./images/purple_L3.png"
+
+let bg4 = new Image()
+bg4.src = "./images/purple_L4.png"
+
+
+let audio = new Audio()
+audio.src = "./music/POL-the-hordes-advance-short.wav"
+audio.volume = 0.1
+audio.loop = true
 
 //============== OBSTACLES ==================================================
 
 function drawObstacle1(x,y,length,height){
-ctx.beginPath()
-ctx.lineWidth = 5
-// ctx.strokeStyle = "black"
-ctx.fillStyle = "white"
-ctx.fillRect(x, y, length, height)
-// ctx.strokeRect(x, y, length, height)
-ctx.closePath()
+    ctx.beginPath()
+    ctx.lineWidth = 5
+    ctx.strokeStyle = "grey"
+    ctx.fillStyle = "rgba(44,49,66,255)"
+    ctx.fillRect(x, y, length, height)
+    ctx.strokeRect(x, y, length, height)
+    ctx.closePath()
 
-ctx.beginPath()
-ctx.fillStyle = "white"
-ctx.fillRect(x + length + obs1Gap, y, length, height)
-ctx.closePath()
+    ctx.beginPath()
+    ctx.lineWidth = 5
+    ctx.strokeStyle = "grey"
+    ctx.fillStyle = "rgba(44,49,66,255)"
+    ctx.fillRect(x + length + obs1Gap, y, length, height)
+    ctx.strokeRect(x + length + obs1Gap, y, length, height)
+    ctx.closePath()
 }
 
 function drawObstacle2(x,y,length,height){
-ctx.beginPath()
-ctx.fillStyle = "white"
-ctx.fillRect(x , y, length, height)
-ctx.closePath()
+    ctx.beginPath()
+    ctx.lineWidth = 5
+    ctx.strokeStyle = "grey"
+    ctx.fillStyle = "rgba(44,49,66,255)"
+    ctx.fillRect(x , y, length, height)
+    ctx.strokeRect(x, y, length, height)
+    ctx.closePath()
 
-ctx.beginPath()
-ctx.fillStyle = "white"
-ctx.fillRect(x + obs2Gap + length, y, length, height)
-ctx.closePath()
+    ctx.beginPath()
+    ctx.lineWidth = 5
+    ctx.strokeStyle = "grey"
+    ctx.fillStyle = "rgba(44,49,66,255)"
+    ctx.fillRect(x + obs2Gap + length, y, length, height)
+    ctx.strokeRect(x + obs2Gap + length, y, length, height)
+    ctx.closePath()
 }
 
 function drawObstacle3(x,y,length,height){
-ctx.beginPath()
-ctx.fillStyle = "white"
-ctx.fillRect(x , y, length, height)
-ctx.closePath
+    ctx.beginPath()
+    ctx.lineWidth = 5
+    ctx.strokeStyle = "grey"
+    ctx.fillStyle = "rgba(44,49,66,255)"
+    ctx.fillRect(x , y, length, height)
+    ctx.strokeRect(x, y, length, height)
+    ctx.closePath
 
-ctx.beginPath()
-ctx.fillStyle = "white"
-ctx.fillRect(x + length + 100 , y, length, height)
-ctx.closePath
+    ctx.beginPath()
+    ctx.lineWidth = 5
+    ctx.strokeStyle = "grey"
+    ctx.fillStyle = "rgba(44,49,66,255)"
+    ctx.fillRect(x + length + 100 , y, length, height)
+    ctx.strokeRect(x + length + 100 , y, length, height)
+    ctx.closePath
 
-ctx.beginPath()
-ctx.fillStyle = "white"
-ctx.fillRect(x + (length + 100)*2 , y, length, height)
-ctx.closePath
+    ctx.beginPath()
+    ctx.lineWidth = 5
+    ctx.strokeStyle = "grey"
+    ctx.fillStyle = "rgba(44,49,66,255)"
+    ctx.fillRect(x + (length + 100)*2 , y, length, height)
+    ctx.strokeRect(x + (length + 100)*2 , y, length, height)
+    ctx.closePath
 
-ctx.beginPath()
-ctx.fillStyle = "white"
-ctx.fillRect(x + (length + 100)*3 , y, length, height)
-ctx.closePath
+    ctx.beginPath()
+    ctx.lineWidth = 5
+    ctx.strokeStyle = "grey"
+    ctx.fillStyle = "rgba(44,49,66,255)"
+    ctx.fillRect(x + (length + 100)*3 , y, length, height)
+    ctx.strokeRect(x + (length + 100)*3 , y, length, height)
+    ctx.closePath
 }
 
 function drawObstacle4(x,y,length, height){
     ctx.beginPath()
-    ctx.fillStyle = "white"
+    ctx.lineWidth = 5
+    ctx.strokeStyle = "grey"
+    ctx.fillStyle = "rgba(44,49,66,255)"
     ctx.fillRect(x , y, length, height)
+    ctx.strokeRect(x, y, length, height)
     ctx.closePath
 }
 
-//arrays para mover todas las partes a la vez
+//Objects
 let obst1Arr = {
     x: 0,
     y: 900
@@ -185,6 +238,46 @@ function moveObst(){
     
 }   
 
+//======================
+//background
+
+let bgImg = [
+    {x:0, y: 0, img:bg1},
+    {x:0, y: canvas.height , img:bg1},
+    // {x:0, y: canvas.height/2 , img:bg1},
+    {x:0, y: 0, img:bg2},
+    {x:0, y: canvas.height, img:bg2},
+    {x:0, y: 0, img:bg3},
+    {x:0, y: canvas.height, img:bg3},
+    {x:0, y: 0, img:bg4},
+    {x:0, y: canvas.height, img:bg4}
+
+]
+
+function background(){
+    for(let i = 0; i < bgImg.length; i++){
+        ctx.drawImage(bgImg[i].img, bgImg[i].x, bgImg[i].y,canvas.width, canvas.height)
+        if(bgImg[i].img == bg1){
+            bgImg[i].y -= 2
+        }
+        else if(bgImg[i].img == bg2){
+            bgImg[i].y -= 3
+        }
+        else if(bgImg[i].img == bg3){
+            bgImg[i].y -= 4
+        }
+        else if(bgImg[i].img == bg4){
+            bgImg[i].y -= 5
+        }
+        if(bgImg[i].y + canvas.height < 0){
+            bgImg[i].y = canvas.height
+        }
+    }
+}
+
+function moveBg(){
+    background()
+}
 //============================================================================
 //character Movement
 
@@ -197,15 +290,19 @@ function moveChar(){
     }
 }
 
+
 function charDirection(){
+    let charDirection = dog
     if(isRight){
-        return ctx.drawImage(dogR, charX,charY,charWidth,charHeight)
+        charDirection = dogR
+        return ctx.drawImage(charDirection, charX,charY,charWidth,charHeight)
     }
     if(isLeft){
-        return ctx.drawImage(dog, charX,charY,charWidth,charHeight)
+        charDirection = dogR
+        return ctx.drawImage(charDirection, charX,charY,charWidth,charHeight)
     }
     if(!isLeft && !isRight){
-        return ctx.drawImage(dog, charX,charY,charWidth,charHeight)
+        return ctx.drawImage(charDirection, charX,charY,charWidth,charHeight)
     }
 }
 
@@ -258,30 +355,56 @@ function drawFilter(){
     ctx.fillRect(0,0,canvas.width,canvas.height)
 }
  function opacityIncrease(){
-    if(opacity < 0.7){
+    if(opacity < 0.6){
         opacity += 0.01
     }
  }
+//==============================================================
 
-//===================================================================
+function printScore(){
+
+    scoreTxt.innerHTML = `Your score: ${score}`
+
+}
+
+function printLosingStatement (){
+    if(score < 10){
+        insultTxt.innerHTML = "Did you even try?"
+    }
+    else if(score >= 10 && score < 25){
+        insultTxt.innerHTML = "How sad..."
+    }
+    else if(score >= 25 && score < 50){
+        insultTxt.innerHTML = "So close and yet so far"
+    } 
+    else if(score >= 50){
+        insultTxt.innerHTML = "Go touch some grass dude"
+    }
+}
+//==============================================================
 
 function animation(){
     ctx.clearRect(0,0,canvas.width, canvas.height)
     
+
+    moveBg()
     charDirection()
     moveChar()
     moveObst()
     checkCollisions()
     drawFilter()
+    
 
     ctx.font = "24px Verdana"
-    ctx.fillStyle = "red"
+    ctx.fillStyle = "white"
     ctx.fillText(`Score: ${score}`, 30, 70)
 
 
     if (isGameOver){
         cancelAnimationFrame(intervalId)
+        audio.pause()
         restart()
+        
     }
     else {
         intervalId = requestAnimationFrame(animation)
@@ -291,6 +414,8 @@ function animation(){
 //==============================================================================
 
 function start(){
+
+    gameScreen.style.display = "block"
     startBtn.style.display = "none"
     canvas.style.display = "block"
     instructions.style.display = "none"
@@ -304,24 +429,29 @@ function start(){
     obst2Arr.y = obst1Arr.y + obsGap
     obst3Arr.y = obst2Arr.y + obsGap
     obst4Arr.y = obst3Arr.y + obsGap
+    audio.play()
     animation()
 }
 
 function restart(){
+    
+    // gameOverScreen.style.display = "block"
     restartBtn.style.display = "block"
     menuBtn.style.display = "block"
     canvas.style.display = "none"
+    printScore()
+    printLosingStatement()
 }
+
 
 //====================================================
 
 window.addEventListener("load", () => {
     
+    gameScreen.style.display = "none"
     canvas.style.display = "none"
     restartBtn.style.display = "none"
     menuBtn.style.display = "none"
-    
-    // start()
 
     document.addEventListener("keydown", (event) => {
         if(event.key === "ArrowLeft" || event.key === "a"){
@@ -350,9 +480,11 @@ window.addEventListener("load", () => {
     })
 
     menuBtn.addEventListener("click", () => {
+        document.body.style.background = "url('.images/fondo-start.jpg') no-repeat"
         instructions.style.display = "block"
         menuBtn.style.display = "none"
         restartBtn.style.display = "none"
         startBtn.style.display = "block"
+        gameScreen.style.display = "none"
     })
 })
