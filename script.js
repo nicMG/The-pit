@@ -11,6 +11,7 @@ let instructions = document.querySelector("#instructions")
 let gameScreen = document.querySelector("#game")
 let scoreTxt = document.querySelector("#scoreTxt")
 let insultTxt = document.querySelector("#insultTxt")
+let gameOverScreen = document.querySelector("#gameOver")
 
 
 
@@ -419,6 +420,7 @@ function start(){
     startBtn.style.display = "none"
     canvas.style.display = "block"
     instructions.style.display = "none"
+    gameOverScreen.style.display ="none"
     isGameOver = false
     score = 0
     charX = 300
@@ -435,7 +437,7 @@ function start(){
 
 function restart(){
     
-    // gameOverScreen.style.display = "block"
+    gameOverScreen.style.display = "block"
     restartBtn.style.display = "block"
     menuBtn.style.display = "block"
     canvas.style.display = "none"
