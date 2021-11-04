@@ -53,6 +53,10 @@
 
 #start {
   margin-top: 8%;
+  font-family: "Press Start 2P", cursive;
+  font-size: 30px;
+  padding: 20px;
+  text-align: center;
 }
 
 #game h1 {
@@ -71,9 +75,12 @@
   margin-top: 10%;
   margin-left: 40%;
   margin-bottom: 10%;
+  font-family: "Press Start 2P", cursive;
+  background-color: blueviolet;
 }
 
 #menu {
+  font-family: "Press Start 2P", cursive;
   margin-top: 10%;
   margin-left: 40%;
 }

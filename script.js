@@ -1,3 +1,4 @@
+//ctx
 let canvas = document.querySelector("#myCanvas");
 let ctx = canvas.getContext("2d");
 canvas.style.border = "10px solid black";
@@ -12,8 +13,6 @@ let gameScreen = document.querySelector("#game")
 let scoreTxt = document.querySelector("#scoreTxt")
 let insultTxt = document.querySelector("#insultTxt")
 let gameOverScreen = document.querySelector("#gameOver")
-
-
 
 //variables
 let intervalId = 0
@@ -65,7 +64,7 @@ let opacity = 0.0
 let bgY = 0
 let bg1Speed = 1
 
-
+//images
 let dog = new Image()
 dog.src = "./images/perro.png"
 
@@ -90,7 +89,7 @@ bg3.src = "./images/purple_L3.png"
 let bg4 = new Image()
 bg4.src = "./images/purple_L4.png"
 
-
+//audio
 let audio = new Audio()
 audio.src = "./music/POL-the-hordes-advance-short.wav"
 audio.volume = 0.1
@@ -202,7 +201,7 @@ let obst4Arr = {
     y: obst3Arr.y + obsGap
 }
 
-
+//Obstacle Movement
 function moveObst(){
     drawObstacle1(obst1Arr.x, obst1Arr.y, obs1Length, 300)
     obst1Arr.y -= obsSpeed
@@ -239,13 +238,12 @@ function moveObst(){
     
 }   
 
-//======================
-//background
+//======================BACKGROUND==============================================
+
 
 let bgImg = [
     {x:0, y: 0, img:bg1},
     {x:0, y: canvas.height , img:bg1},
-    // {x:0, y: canvas.height/2 , img:bg1},
     {x:0, y: 0, img:bg2},
     {x:0, y: canvas.height, img:bg2},
     {x:0, y: 0, img:bg3},
@@ -279,8 +277,7 @@ function background(){
 function moveBg(){
     background()
 }
-//============================================================================
-//character Movement
+//======================CHARACTER MOVEMENT=================================
 
 function moveChar(){
     if(isRight && charX + charWidth < canvas.width){
@@ -307,8 +304,7 @@ function charDirection(){
     }
 }
 
-//============================================================================
-//collisions
+//========================COLLISIONS===========================================
 
 function checkCollision1(){
     if(charBot > obst1Arr.y && charBot < obst1Arr.y + 300 || charTopL > obst1Arr.y && charTopL < obst1Arr.y + 300){
@@ -348,8 +344,8 @@ function checkCollisions(){
     checkCollision3()
     checkCollision4()
 }
-//==================================================================
-//filter
+//============================FILTER==============================================
+
 
 function drawFilter(){
     ctx.fillStyle = `rgba(0,0,0,${opacity})`
@@ -360,7 +356,8 @@ function drawFilter(){
         opacity += 0.01
     }
  }
-//==============================================================
+
+//=========================SCORE=====================================
 
 function printScore(){
 
@@ -382,7 +379,8 @@ function printLosingStatement (){
         insultTxt.innerHTML = "Go touch some grass dude"
     }
 }
-//==============================================================
+
+//=========================ANIMATION================================
 
 function animation(){
     ctx.clearRect(0,0,canvas.width, canvas.height)
@@ -412,7 +410,7 @@ function animation(){
     }
 }
 
-//==============================================================================
+//=========================START & RESTART================================
 
 function start(){
 
@@ -446,7 +444,7 @@ function restart(){
 }
 
 
-//====================================================
+//====================EVENT LISTENERS================================
 
 window.addEventListener("load", () => {
     
