@@ -15,23 +15,23 @@ A game where the main character is falling through a pit and has to dodge the ob
 * Character has an special ability that allows him to instantly dash a short distance
 
 ## Data Structure
-Defined Variables
-drawObstacles()
-moveObstacles()
-background()
-moveBg()
-moveChar()
-charDirection()
-checkCollisions()
-drawFilter()
-opacityIncrease()
-printScore()
-printLosingStatement()
-animation()
-start()
-restart()
+* Defined Variables
+* drawObstacles()
+* moveObstacles()
+* background()
+* moveBg()
+* moveChar()
+* charDirection()
+* checkCollisions()
+* drawFilter()
+* opacityIncrease()
+* printScore()
+* printLosingStatement()
+* animation()
+* start()
+* restart()
 
-Event Listeners
+* Event Listeners
 
 ## Task
 
