@@ -15,28 +15,23 @@ A game where the main character is falling through a pit and has to dodge the ob
 * Character has an special ability that allows him to instantly dash a short distance
 
 ## Data Structure
-### mainGame.js
-* startGame()
-* drawCanvas()
-* addObstacles()
-* collisions()
-* gameOver()
-* victory()
-### character.js
-* Character()
-* drawCharacter()
-* characterMove()
-* dash()
-### obstacles.js
-* Obstacles()
-* drawObstacle()
-* obstMovement()
+Defined Variables
+drawObstacles()
+moveObstacles()
+background()
+moveBg()
+moveChar()
+charDirection()
+checkCollisions()
+drawFilter()
+opacityIncrease()
+printScore()
+printLosingStatement()
+animation()
+start()
+restart()
 
-## States and State Transition
-* Splash screen
-* gameScreen
-* gameOverScreen
-* victoryScreen
+Event Listeners
 
 ## Task
 
